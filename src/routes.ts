@@ -1,5 +1,6 @@
 import dashboardController from "./controllers/dashboard.controller";
 import loginController from "./controllers/login.controller";
+import registerUserController from "./controllers/registerUser.controller";
 import { apiRoute } from "./types";
 
 const routes:apiRoute[]=[
@@ -18,6 +19,11 @@ const routes:apiRoute[]=[
         method:"get",
         controller:dashboardController,
         isProtected:true
+    },{
+        path:"/registerUser",
+        method:"post",
+        controller:registerUserController,
+        isProtected:false
     }
 ]
 export default routes

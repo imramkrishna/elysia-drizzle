@@ -5,12 +5,13 @@ import checkAuth from "./middlewares/checkAuth";
 const app = new Elysia()
 
 routes.forEach(route => {
-  route.isProtected ?
-    app.use(checkAuth).route(route.method, route.path, route.controller)
-    :
+  if (route.isProtected) {
+    app.use(new Elysia().use(checkAuth).route(route.method, route.path, route.controller))
+  } else {
     app.route(route.method, route.path, route.controller)
+  }
 })
-
+app.listen(3000)
 console.log(
   `🦊 Elysia is running at ${app.server?.hostname}:${app.server?.port}`
 );

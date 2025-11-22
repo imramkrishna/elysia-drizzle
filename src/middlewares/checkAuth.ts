@@ -29,7 +29,7 @@ const checkAuth = new Elysia()
     .guard({
         beforeHandle({user,set}:any) {
             if(!user){
-                set.status=-StatusCode.UNAUTHORIZED
+                set.status=StatusCode.UNAUTHORIZED
                 return {
                     message:"unauthorized."
                 }

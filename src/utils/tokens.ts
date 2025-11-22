@@ -9,47 +9,22 @@ export interface checkToken{
     user?:any,
     token?:string
 }
-export const generateAccessToken = async (data: any, { set }: Context) => {
+export const generateAccessToken = async (data: any):Promise<string> => {
     if (!jwtkey) {
         throw new Error("No jwt key associated for token generations")
     }
-    try {
         const token = jwt.sign(data, jwtkey, { expiresIn: '15m' })
-        if (!token) {
-            set.status = StatusCode.BAD_REQUEST
-            return {
-                message: "Unknown Error while generating token"
-            }
-        }
-        return {
-            accessToken: token
-        }
-    } catch (error) {
-        set.status = StatusCode.INTERNAL_ERROR
-        return {
-            message: "Bad Request"
-        }
-    }
+        return token;
 }
-export const generateRefreshToken = async (data: any, { set }: Context) => {
+export const generateRefreshToken = async (data: any):Promise<string> => {
     if (!jwtkey) {
         throw new Error("No jwt key associated for token generation")
     }
-    try {
-        const token=await jwt.sign(data,jwtkey,{expiresIn:'7d'})
+        const token:string=await jwt.sign(data,jwtkey,{expiresIn:'7d'})
         if(!token){
             throw new Error("Error while generating refresh tokens")
         }
-        set.status=StatusCode.SUCCESS
-        return{
-            refreshToken:token
-        }
-    } catch (error) {
-        set.status=StatusCode.INTERNAL_ERROR
-        return{
-            message:"Error while generating refresh token"
-        }
-    }
+        return token
 }
 export const verifyAccessToken=async(token:string):Promise<checkToken>=>{
     try {

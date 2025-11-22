@@ -8,7 +8,7 @@ export const users=pgTable("users",{
     createdAt:timestamp("created_at").notNull().defaultNow()
 })
 
-export const loginSessions=pgTable("loginSessions",{
+export const loginSessions=pgTable("login_sessions",{
     id:serial("id").primaryKey().notNull(),
     userId:integer("user_id").references(()=>users.id,{onDelete:"cascade"}).notNull(),
     refreshToken:text("refreshToken").notNull(),

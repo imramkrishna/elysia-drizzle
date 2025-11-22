@@ -16,3 +16,8 @@ export interface apiRoute{
     controller:(data:Context)=>{},
     isProtected:boolean
 }
+export interface User{
+    name:string,
+    email:string,
+    password:string
+}
